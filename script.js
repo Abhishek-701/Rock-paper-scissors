@@ -8,9 +8,9 @@
 //Write a final game loop with a counter to keep score
 
 
-let playerCount = 0
-let computerCount = 0
-let roundWinner = '' 
+    let playerCount = 0
+    let computerCount = 0
+    let roundWinner = '' 
 
 const getComputerChoice = () => {
     let choices = ['rock', 'paper', 'scissors']
@@ -24,9 +24,9 @@ const updateScoreMessage = (roundWinner , computerChoice , playerChoice) => {
         console.log("It's a tie!");
     }
     if(roundWinner ===  'player'){
-        console.log("You win! " + playerChoice + " beats " + computerChoice);
+        console.log("You win! " + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice));
     }else if (roundWinner === 'computer') { 
-        console.log("You lose. " + computerChoice + " beats " + playerChoice);
+        console.log("You lose. " + capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(playerChoice));
     }
 }
 
@@ -53,9 +53,36 @@ const playRound = (computerChoice, playerChoice) => {
     updateScoreMessage(roundWinner,computerChoice,playerChoice)
 }
 
+// Helper Functions
+
+const capitalizeFirstLetter =  (s) => {
+    let str = s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
+    return str;
+}
+
+const isGameOver = (playerCount, computerCount) => {
+    if(playerCount === 5 || computerCount === 5){
+        return true
+    }else{
+        return false
+    }
+}
 
 
-let playerChoice = 'scissors'
-let computerChoice = getComputerChoice()
 
-console.log(playRound(computerChoice, playerChoice));
+
+console.log();
+
+const game = () => {    
+    while(!isGameOver(playerCount,computerCount)){
+        let playerChoice = prompt("Select Rock , Paper or Scissors.").toLowerCase()
+        let computerChoice = getComputerChoice()
+        console.log("Working");
+        playRound(computerChoice, playerChoice)
+    }
+
+    console.log("Loop Ended");
+}
+
+game()
+
