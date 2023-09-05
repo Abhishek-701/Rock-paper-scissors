@@ -28,11 +28,13 @@ const updateScoreMessage = (roundWinner , computerChoice , playerChoice) => {
     }else if (roundWinner === 'computer') { 
         console.log("You lose. " + capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(playerChoice));
     }
+
+    console.log("Player Count: " + playerCount  + "    Computer Count: "+ computerCount);
 }
 
 
 const playRound = (computerChoice, playerChoice) => {
-    console.log(computerChoice, playerChoice);
+    console.log("Player Choice: " + capitalizeFirstLetter(playerChoice) + "    Computer Choice: " + capitalizeFirstLetter(computerChoice));
    if(computerChoice == playerChoice){
     roundWinner = 'tie'
    }
@@ -49,7 +51,7 @@ const playRound = (computerChoice, playerChoice) => {
         computerCount++;
         roundWinner= 'computer'
     }
-    console.log(computerCount , playerCount);
+    
     updateScoreMessage(roundWinner,computerChoice,playerChoice)
 }
 
@@ -77,11 +79,26 @@ const game = () => {
     while(!isGameOver(playerCount,computerCount)){
         let playerChoice = prompt("Select Rock , Paper or Scissors.").toLowerCase()
         let computerChoice = getComputerChoice()
-        console.log("Working");
         playRound(computerChoice, playerChoice)
     }
 
-    console.log("Loop Ended");
+    if(playerCount === 5 ){
+        console.log(' CONGRATULATIONS. You WIN.');
+    }else{
+        console.log('You LOST. Better luck next time');
+    }
+
+    let playAgain = prompt("Would you like to play again? Type y or n").toLowerCase()
+
+    if(playAgain == 'y'){
+        playerCount = 0;
+        computerCount= 0 
+        roundWinner = ''
+        game()
+    } else{
+        console.log("Thank you for playing.");
+        return
+    }
 }
 
 game()
